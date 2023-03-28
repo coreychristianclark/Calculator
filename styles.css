@@ -27,6 +27,8 @@ body {
     background-color: rgba(255, 255, 255, 0.75);
 }
 
-.calculator.grid > button:hover {
+.calculator-grid > button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: 0.25s ease;
     
 }
