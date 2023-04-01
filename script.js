@@ -5,33 +5,58 @@ class Calculator {
         this.clear()
     }
     
-        clear() {
-            this.currentOperand = ""
-            this.previousOperand = ""
-            this.operation = undefined
-        }
+    clear() {
+        this.currentOperand = ""
+        this.previousOperand = ""
+        this.operation = undefined
+    }
 
-        delete() {
+    delete() {
 
-        }
+    }
 
     appendNumber(number) {
         if (number === '.' && this.currentOperand.includes('.')) return; // This line of code makes it so you can only have one decimal on the screen at a time.
-            this.currentOperand = this.currentOperand.toString() + number.toString(); // We use "toString()" so that JS doesn't ADD the values -- we merely want them to keep appearing at the end of the list.
+        this.currentOperand = this.currentOperand.toString() + number.toString(); // We use "toString()" so that JS doesn't ADD the values -- we merely want them to keep appearing at the end of the list.
+    }
+
+    chooseOperation(operation) {
+        if (this.currentOperand === "") return; // If this returns, it stops the rest of the code below it from executing.
+        if (this.previousOperand !== "") {
+            this.compute()
         }
+        this.operation = operation;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = "";
+    }
 
-        chooseOperation(operation) {
-            this.operation = operation;
-            this.previousOperand = this.currentOperand;
-            this.currentOperand = "";
-        }
-
-        compute() {
-
+    compute() {
+        let computation
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        if (isNaN(prev) || isNaN(current)) return; // || equals OR. This or that.
+        switch (this.operation) {
+            case "+":
+                computation = prev + current;
+                break
+            
+            case "-":
+                computation = prev - current;
+                break
+            
+            case "*":
+                computation = prev * current;
+                break
+            
+            case "/":
+                computation = prev / current;
+                break
+            }
         }
 
         updateDisplay() {
             this.currentOperandTextElement.innerText = this.currentOperand;
+            this.previousOperandTextElement.innerText = this.previousOperand; // Makes it so that when you hit an operation, the numbers move to the top instead of just disappearing.
         }
     }
 
@@ -60,3 +85,8 @@ operationButtons.forEach(button => {
         calculator.updateDisplay();
     });
 });
+
+equalsButton.addEventListener('click', button => {
+    calculator.compute();
+    calculator.updateDisplay();
+})
