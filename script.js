@@ -12,7 +12,7 @@ class Calculator {
     }
 
     delete() {
-
+        this.currentOperand = this.currentOperand.toString().slice(0, -1); // So, .slice() for a regular application, and .pop() for an array value.
     }
 
     appendNumber(number) {
@@ -48,10 +48,18 @@ class Calculator {
                 computation = prev * current;
                 break
             
-            case "/":
+            case "÷":
                 computation = prev / current;
                 break
-            }
+            
+            default:
+                return
+        }
+        
+        this.currentOperand = computation;
+        this.operation = undefined;
+        this.previousOperand = "";
+
         }
 
         updateDisplay() {
@@ -88,5 +96,15 @@ operationButtons.forEach(button => {
 
 equalsButton.addEventListener('click', button => {
     calculator.compute();
+    calculator.updateDisplay();
+})
+
+allClearButton.addEventListener('click', button => {
+    calculator.clear();
+    calculator.updateDisplay();
+})
+
+deleteButton.addEventListener('click', button => {
+    calculator.delete();
     calculator.updateDisplay();
 })
