@@ -11,7 +11,7 @@ class Calculator {
             this.operation = undefined
         }
 
-        delete () {
+        delete() {
 
         }
 
@@ -44,8 +44,8 @@ const currentOperandTextElement = document.querySelector('[data-current-operand]
 
 const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
 
-numberButtons.forEach(bottom => {
-    button.addEventListener(`click`, () => {
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
         calculator.appendNumber(button.innerText);
         calculator.updateDisplay();
     })
