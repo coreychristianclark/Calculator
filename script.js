@@ -15,12 +15,15 @@ class Calculator {
 
         }
 
-        appendNumber(number) {
-            this.currentOperand = this.currentOperand.toString() + number.toString();
+    appendNumber(number) {
+        if (number === '.' && this.currentOperand.includes('.')) return; // This line of code makes it so you can only have one decimal on the screen at a time.
+            this.currentOperand = this.currentOperand.toString() + number.toString(); // We use "toString()" so that JS doesn't ADD the values -- we merely want them to keep appearing at the end of the list.
         }
 
         chooseOperation(operation) {
-
+            this.operation = operation;
+            this.previousOperand = this.currentOperand;
+            this.currentOperand = "";
         }
 
         compute() {
@@ -47,6 +50,13 @@ const calculator = new Calculator(previousOperandTextElement, currentOperandText
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
         calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
+    });
+});
+
+operationButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.chooseOperation(button.innerText);
         calculator.updateDisplay();
     });
 });
