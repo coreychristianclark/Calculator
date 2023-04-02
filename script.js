@@ -65,9 +65,17 @@ class Calculator {
         const stringNumber = number.toString();
         const intergerDigits = parseFloat(stringNumber.split(".")[0]); // This turns it into an array, which is why we must use the square brackets and index number.
         const decimalDigits = stringNumber.split(".")[1];
-        const floatNumber = parseFloat(number) // The PARSE takes the string and turns it into a number. (Parse - Analyzes and makes information useable)
-        if (isNaN(floatNumber)) return "";
-        return floatNumber.toLocaleString("en");
+        let intergerDisplay // Left empty.
+        if (isNaN(intergerDigits)) {
+            intergerDisplay = "";
+        } else {
+            intergerDisplay = intergerDigits.toLocaleString('en', {maximumFractionDigits: 0 });
+        }
+        if (decimalDigits != null) {
+            return `${intergerDisplay}.${decimalDigits}`;
+        } else {
+            return intergerDisplay;
+        }
     }
 
         updateDisplay() {
@@ -75,6 +83,8 @@ class Calculator {
             if (this.operation != null) {
                 this.previousOperandTextElement.innerText =
                     `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`; // These few lines are what keep the operation symbol next to the number when the number is transferred to "the back". Also includes the comma when needed.
+            } else {
+                this.previousOperandTextElement.innerText = "";
             }
         }
     }
