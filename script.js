@@ -63,18 +63,18 @@ class Calculator {
     
     getDisplayNumber(number) {
         const stringNumber = number.toString();
-        const intergerDigits = parseFloat(stringNumber.split(".")[0]); // This turns it into an array, which is why we must use the square brackets and index number.
+        const integerDigits = parseFloat(stringNumber.split(".")[0]); // This turns it into an array, which is why we must use the square brackets and index number.
         const decimalDigits = stringNumber.split(".")[1];
-        let intergerDisplay // Left empty.
-        if (isNaN(intergerDigits)) {
-            intergerDisplay = "";
+        let integerDisplay // Left empty.
+        if (isNaN(integerDigits)) {
+            integerDisplay = "";
         } else {
-            intergerDisplay = intergerDigits.toLocaleString('en', {maximumFractionDigits: 0 });
+            integerDisplay = integerDigits.toLocaleString('en', {maximumFractionDigits: 0 });
         }
         if (decimalDigits != null) {
-            return `${intergerDisplay}.${decimalDigits}`;
+            return `${integerDisplay}.${decimalDigits}`;
         } else {
-            return intergerDisplay;
+            return integerDisplay;
         }
     }
 
